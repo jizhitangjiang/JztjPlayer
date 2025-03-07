@@ -1,0 +1,12 @@
+#ifndef JZTJPLAYER_GLOBAL_H
+#define JZTJPLAYER_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(JZTJPLAYER_LIBRARY)
+#  define JZTJPLAYER_EXPORT Q_DECL_EXPORT
+#else
+#  define JZTJPLAYER_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // JZTJPLAYER_GLOBAL_H
