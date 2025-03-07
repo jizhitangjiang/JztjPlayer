@@ -1,0 +1,4 @@
+#ifndef MEDIAPLAYERDEF_H
+#define MEDIAPLAYERDEF_H
+
+#endif // MEDIAPLAYERDEF_H
