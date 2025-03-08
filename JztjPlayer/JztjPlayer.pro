@@ -13,6 +13,7 @@ SOURCES += \
     jztjplayer.cpp
 
 
+INCLUDEPATH += $$ROOT_PATH/3rdparty/win64/ffmpeg-5.1.2/include
 
 LIBS += -L$$ROOT_PATH/3rdparty/win64/ffmpeg-5.1.2/lib\
     -lavcodec -lavdevice -lavfilter -lavformat -lavutil -swresample -lswscale
