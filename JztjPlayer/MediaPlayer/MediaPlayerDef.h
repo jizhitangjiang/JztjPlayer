@@ -25,6 +25,10 @@ struct MyFrame
 struct Decoder
 {
     AVCodecContext *context{nullptr};
+
+    PacketQueue *pkts{nullptr};
+
+    FrameQueue  *frames{nullptr};
 };
 
 struct MediaPlayerContext
@@ -33,7 +37,8 @@ struct MediaPlayerContext
 
     AVFormatContext *avfromat{nullptr};
 
-
+    Decoder *audioDecoder{nullptr};
+    Decoder *videoDecoder{nullptr};
 };
 
 #endif // MEDIAPLAYERDEF_H

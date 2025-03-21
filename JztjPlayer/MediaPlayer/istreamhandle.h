@@ -9,7 +9,7 @@ public:
     IStreamHandle(MediaPlayerContext *context);
     ~IStreamHandle();
 
-    int openDecoder(int streamIdex);
+    int openDecoder(Decoder *decoder, int streamIdex);
     AVFrame* decodePacket(Decoder *decoder);
 
 private:
