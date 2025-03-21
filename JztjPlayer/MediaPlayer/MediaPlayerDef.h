@@ -1,6 +1,10 @@
 #ifndef MEDIAPLAYERDEF_H
 #define MEDIAPLAYERDEF_H
 
+#include <string>
+#include "framequeue.h"
+#include "packetqueue.h"
+
 extern "C" {
 #include "libavformat/avformat.h"
 #include "libavcodec/avcodec.h"
@@ -17,4 +21,19 @@ struct MyFrame
 {
     AVFrame *frame;
 };
+
+struct Decoder
+{
+    AVCodecContext *context{nullptr};
+};
+
+struct MediaPlayerContext
+{
+    std::string fileName;   //视频地址
+
+    AVFormatContext *avfromat{nullptr};
+
+
+};
+
 #endif // MEDIAPLAYERDEF_H

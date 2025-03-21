@@ -1,5 +1,5 @@
 #include "framequeue.h"
-#include "MediaPlayerDef.h"
+#include "mediaplayerdef.h"
 
 static const int s_maxFrameQueueSize = 16;
 

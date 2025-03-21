@@ -1,6 +1,6 @@
 
 #include "packetqueue.h"
-#include "MediaPlayerDef.h"
+#include "mediaplayerdef.h"
 
 PacketQueue::PacketQueue()
 {
