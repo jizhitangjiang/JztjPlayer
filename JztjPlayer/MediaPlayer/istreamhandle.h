@@ -2,6 +2,7 @@
 #define ISTREAMHANDLE_H
 
 #include "mediaplayerdef.h"
+#include <functional>
 
 class IStreamHandle
 {
@@ -9,10 +10,12 @@ public:
     IStreamHandle(MediaPlayerContext *context);
     ~IStreamHandle();
 
+protected:
+    Decoder* createDecoder(int frameMaxSize);
     int openDecoder(Decoder *decoder, int streamIdex);
-    AVFrame* decodePacket(Decoder *decoder);
+    int decodePacket(Decoder *decoder, AVFrame *frame);
 
-private:
+protected:
     MediaPlayerContext *m_context{nullptr};
 };
 

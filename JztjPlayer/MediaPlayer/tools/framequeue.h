@@ -17,8 +17,11 @@ public:
 
     void init(int maxSize);
 
-    int pushFrame(AVFrame *frame);
-    int getPacket(AVFrame* frame);
+    AVFrame* getWritableFrame();
+    int pushWritableFrame();
+
+    AVFrame* getReadableFrame();
+    int pushReadableFrame();
 
     void clean();
 
