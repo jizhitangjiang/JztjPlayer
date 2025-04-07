@@ -12,6 +12,7 @@ public:
     void openStream(int streamIndex);
     void pushAVPacket(AVPacket *pkt);
 
+private:
     void decodeThread();
 
 public:

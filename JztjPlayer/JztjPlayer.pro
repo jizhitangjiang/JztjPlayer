@@ -5,6 +5,8 @@ CONFIG += c++11
 
 ROOT_PATH = $$PWD/../
 
+DESTDIR = $$ROOT_PATH/bin
+
 HEADERS += \
     IJZTJPlayer.h \
     jztjplayer.h

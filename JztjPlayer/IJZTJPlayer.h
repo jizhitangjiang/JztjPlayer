@@ -1,10 +1,22 @@
 #ifndef IJZTJPLAYER_H
 #define IJZTJPLAYER_H
 
+#include <string>
+
 #if defined(JZTJPLAYER_LIBRARY)
-#  define JZTJPLAYER_EXPORT __declspec(dllexport)
+#  define JZTJPLAYER_API __declspec(dllexport)
 #else
-#  define JZTJPLAYER_EXPORT __declspec(dllimport)
+#  define JZTJPLAYER_API __declspec(dllimport)
 #endif
+
+class IJZTJPlayer
+{
+public:
+    virtual ~IJZTJPlayer(){};
+
+    virtual int openMediaFile(const std::string &fileName) = 0;
+};
+
+extern "C" JZTJPLAYER_API IJZTJPlayer *createIJZTJPlayer();
 
 #endif // IJZTJPLAYER_H

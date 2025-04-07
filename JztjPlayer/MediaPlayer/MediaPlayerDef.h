@@ -25,9 +25,7 @@ struct MyFrame
 struct Decoder
 {
     AVCodecContext *context{nullptr};
-
     PacketQueue *pkts{nullptr};
-
     FrameQueue  *frames{nullptr};
 };
 
