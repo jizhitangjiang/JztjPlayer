@@ -19,6 +19,7 @@ void VideoStreamHandle::openStream(int streamIndex)
     IStreamHandle::openDecoder(m_context->videoDecoder, streamIndex);
 
     m_decodeThread = std::thread(std::bind(&VideoStreamHandle::decodeThread, this));
+    m_renderThread = std::thread(std::bind(&VideoStreamHandle::renderThread, this));
 }
 
 void VideoStreamHandle::pushAVPacket(AVPacket *pkt)
@@ -45,4 +46,19 @@ void VideoStreamHandle::decodeThread()
 
     av_frame_free(&frame);
     return;
+}
+
+void VideoStreamHandle::renderThread()
+{
+    Decoder *decoder = m_context->videoDecoder;
+    while (true) {
+        AVFrame *rFrame = decoder->frames->getReadableFrame();
+        m_context->videoDataCallback(rFrame->width, rFrame->height,
+                                     rFrame->linesize[0], rFrame->linesize[1], rFrame->linesize[2],
+                                     rFrame->data[0], rFrame->data[1], rFrame->data[2],
+                                      m_context->videoDataObj);
+        decoder->frames->pushReadableFrame();
+        av_frame_unref(rFrame);
+    }
+
 }

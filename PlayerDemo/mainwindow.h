@@ -16,8 +16,19 @@ public:
     Mainwindow(QWidget *parent = nullptr);
     ~Mainwindow();
 
+public:
+    void videoDataCallback(int w, int h, int yStride, int uStride, int vStride,
+                           uint8_t *yData, uint8_t *uData, uint8_t *vData);
+
+signals:
+    void updateImage(int w, int h, int yStride, int uStride, int vStride,
+                     const QByteArray &yData, const QByteArray &uData, const QByteArray &vData);
+
 private slots:
     void on_pushButton_clicked();
+    void onUpdateImage(int w, int h, int yStride, int uStride, int vStride,
+                       const QByteArray &yData, const QByteArray &uData, const QByteArray &vData);
+
 
 private:
     Ui::Mainwindow *ui;

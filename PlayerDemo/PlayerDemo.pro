@@ -21,3 +21,4 @@ FORMS += \
     mainwindow.ui
 
 
+include(render/render.pri)

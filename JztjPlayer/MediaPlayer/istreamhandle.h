@@ -12,7 +12,7 @@ public:
 
 protected:
     Decoder* createDecoder(int frameMaxSize);
-    int openDecoder(Decoder *decoder, int streamIdex);
+    int openDecoder(Decoder *decoder, uint32_t streamIdex);
     int decodePacket(Decoder *decoder, AVFrame *frame);
 
 protected:

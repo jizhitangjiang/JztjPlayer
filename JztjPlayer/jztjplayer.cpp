@@ -11,6 +11,11 @@ JztjPlayer::~JztjPlayer()
 
 }
 
+void JztjPlayer::setVideoYUVDataCallback(VideoYUVDataCallback callback, void *obj)
+{
+    m_mediaPlayer->setVideoYUVDataCallback(callback, obj);
+}
+
 int JztjPlayer::openMediaFile(const std::string &fileName)
 {
     int ret = m_mediaPlayer->openFile(fileName);

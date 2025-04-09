@@ -11,6 +11,8 @@ public:
     ~JztjPlayer();
 
 public:
+    void setVideoYUVDataCallback(VideoYUVDataCallback callback, void *obj) override;
+
     int openMediaFile(const std::string &fileName) override;
 
 private:

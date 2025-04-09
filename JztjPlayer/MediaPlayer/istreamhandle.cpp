@@ -20,7 +20,7 @@ Decoder* IStreamHandle::createDecoder(int frameMaxSize)
     return decoder;
 }
 
-int IStreamHandle::openDecoder(Decoder *decoder, int streamIdex)
+int IStreamHandle::openDecoder(Decoder *decoder, uint32_t streamIdex)
 {
     if (streamIdex >= m_context->avfromat->nb_streams) {
         return -1;
@@ -46,9 +46,14 @@ int IStreamHandle::openDecoder(Decoder *decoder, int streamIdex)
         return -5;
     }
 
-    int ret = avcodec_open2(codecContext, codec, nullptr);
+    int ret = avcodec_parameters_to_context(codecContext, codecpar);
     if (ret) {
-        return -6;
+        return -7;
+    }
+
+    ret = avcodec_open2(codecContext, codec, nullptr);
+    if (ret) {
+        return -8;
     }
 
     decoder->context = codecContext;
@@ -79,7 +84,6 @@ int IStreamHandle::decodePacket(Decoder *decoder, AVFrame *frame)
 
         decoder->pkts->getPacket(&pkt);
         avcodec_send_packet(decoder->context, &pkt);
-        av_packet_unref(&pkt);
     }
 
     return 0;

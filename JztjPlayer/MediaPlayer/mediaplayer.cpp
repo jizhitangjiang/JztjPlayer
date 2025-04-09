@@ -2,12 +2,12 @@
 
 int interruptCallback(void* opaque)
 {
-
     return 0;
 }
 
 MediaPlayer::MediaPlayer()
 {
+    m_mediaPlayer = new MediaPlayerContext;
 }
 
 MediaPlayer::~MediaPlayer()
@@ -15,14 +15,16 @@ MediaPlayer::~MediaPlayer()
 
 }
 
+void MediaPlayer::setVideoYUVDataCallback(VideoYUVDataCallback callback, void *obj)
+{
+    m_mediaPlayer->videoDataCallback = callback;
+    m_mediaPlayer->videoDataObj = obj;
+}
+
 int MediaPlayer::openFile(const std::string &fileName)
 {
     if (fileName.empty()) {
         return -1;
-    }
-
-    if (!m_mediaPlayer) {
-        m_mediaPlayer = new MediaPlayerContext;
     }
 
     m_mediaPlayer->fileName = fileName;
@@ -43,17 +45,20 @@ void MediaPlayer::readThread()
         //todo
     }
 
+    avformat_find_stream_info(ic, nullptr);
+    av_dump_format(ic, 0, NULL, 0);
+
     int audioStreamIndex = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, nullptr, 0);
     int videoStreamIndex = av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO, -1, -1, nullptr, 0);
 
     if (audioStreamIndex >= 0) {
-        m_audioStream = new AudioStreamHandle(m_mediaPlayer);
-        m_audioStream->openStream(audioStreamIndex);
+//        m_audioStream = new AudioStreamHandle(m_mediaPlayer);
+//        m_audioStream->openStream(audioStreamIndex);
     }
 
     if (videoStreamIndex >= 0) {
         m_videoStream = new VideoStreamHandle(m_mediaPlayer);
-        m_videoStream->openStream(audioStreamIndex);
+        m_videoStream->openStream(videoStreamIndex);
     }
 
     AVPacket pkt;
@@ -64,9 +69,11 @@ void MediaPlayer::readThread()
         }
 
         if (pkt.stream_index == audioStreamIndex) {
-            m_audioStream->pushAVPacket(&pkt);
+           // m_audioStream->pushAVPacket(&pkt);
         } else if (pkt.stream_index == videoStreamIndex) {
             m_videoStream->pushAVPacket(&pkt);
         }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }

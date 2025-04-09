@@ -14,8 +14,10 @@ public:
 
 private:
     void decodeThread();
+    void renderThread();
 
 public:
+    std::thread m_renderThread;
     std::thread m_decodeThread;
 };
 

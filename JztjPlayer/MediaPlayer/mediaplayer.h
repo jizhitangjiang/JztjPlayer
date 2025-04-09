@@ -12,6 +12,7 @@ public:
     MediaPlayer();
     ~MediaPlayer();
 
+    void setVideoYUVDataCallback(VideoYUVDataCallback callback, void *obj);
     int openFile(const std::string &fileName);
 
 private:

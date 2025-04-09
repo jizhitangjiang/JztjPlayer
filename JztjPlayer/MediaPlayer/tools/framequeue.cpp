@@ -13,6 +13,7 @@ FrameQueue::~FrameQueue()
 
 void FrameQueue::init(int maxSize)
 {
+    m_maxSize = maxSize;
     m_frames.reserve(maxSize);
     for (int i = 0; i < maxSize; i++) {
         MyFrame *frame = new MyFrame();
